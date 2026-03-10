@@ -1,0 +1,22 @@
+services:
+  postgres:
+    hostname: postgres
+    image: postgres:18
+    container_name: saas_postgres_18
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-postgres}
+    volumes:
+      - pg_data:/var/lib/postgresql
+    networks:
+      - saas_network
+
+volumes:
+  pg_data:
+
+networks:
+  saas_network:
